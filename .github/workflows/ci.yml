@@ -78,6 +78,7 @@ jobs:
           code-server \
             --install-extension davidanson.vscode-markdownlint \
             --install-extension donjayamanne.githistory \
+            --install-extension moonshot-ai.kimi-code \
             --install-extension eamodio.gitlens 
           
 
