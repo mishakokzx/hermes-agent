@@ -19,26 +19,6 @@ jobs:
           Set-Location $workDir
           echo "WORK_DIR=$workDir" >> $env:GITHUB_ENV
           echo "SCREENSHOT_DIR=$screenshotDir" >> $env:GITHUB_ENV
-          # FF
-          $dat2 = '{"guest_account_info":{"com.garena.msdk.guest_password":"19B8FB1E970C8A6EFE0AA575F416897F4C46FA0CB6C75099C4D6A9D363CA7FC2","com.garena.msdk.guest_uid":"5019090756"}}'
-          $dat2 | Set-Content  -Path $env:USERPROFILE\Desktop\guest100067.dat -NoNewLine
-          $script = 'Move-Item -Path "C:\Program Files\MuMuVMMVbox\Hypervisor\MuMuVMMHeadless.exe" -Destination "C:\Program Files\MuMuVMMVbox\Hypervisor\HD-Player.exe" -Force && New-Item -ItemType SymbolicLink -Path "C:\Program Files\MuMuVMMVbox\Hypervisor\MuMuVMMHeadless.exe" -Target "C:\Program Files\MuMuVMMVbox\Hypervisor\HD-Player.exe" -Force'
-          Write-Output $script >> $env:USERPROFILE\Desktop\Smylink.ps1
-          cd $env:USERPROFILE\Downloads
-          curl.exe -L -o Cheat-Engine.exe "https://duwtdv56pofh5.cloudfront.net/CyBCCSj/6uuh.exe"
-          curl.exe -L -o Mumu.exe "https://a11.gdl.netease.com/MuMu_5.0.11_gw-win-download_all_1770087078.exe?n=MuMu_5.0.11_M8qMJxC.exe&key1=61336ace79a220e710e85b0ddc95faf3&key2=6a1508aa"
-          mkdir -p $env:USERPROFILE\Documents\MuMuSharedFolder\GUEST
-          $response = curl.exe https://d.apkpure.com/b/XAPK/com.dts.freefireth?version=latest -H "User-Agent: Windows"
-          $match = [regex]::Match($response, 'href="([^"]+)"')
-          if ($match.Success) {
-              $apkurl = $match.Groups[1].Value
-              echo $apkurl
-              curl.exe -L -o $env:USERPROFILE\Documents\MuMuSharedFolder\Free-Fire.xapk $apkurl
-          }
-          
-          $guestdat = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("eyJndWVzdF9hY2NvdW50X2luZm8iOnsiY29tLmdhcmVuYS5tc2RrLmd1ZXN0X3Bhc3N3b3JkIjoiMzNDRDQ5OENENzk2ODY4QzJDNEE4NjI3NzdCRDYwNDcyRDA2MkI2RUJENDE1QUQxODk4RkQzODFFNEY3OUE2NCIsImNvbS5nYXJlbmEubXNkay5ndWVzdF91aWQiOiI0OTk1MTMxNDcyIn19"))
-          $guestdat | Set-Content -Path "$env:USERPROFILE\Documents\MuMuSharedFolder\GUEST\guest100067.dat" -NoNewline
-         
 
       - name: Install Python dependencies
         shell: powershell
@@ -220,8 +200,6 @@ jobs:
           Write-Host "=== KEEPING WORKFLOW ALIVE ==="
           Write-Host "Parsec and AHK running in background"
           Write-Host "==============================="
-          start firefox "https://garena-free-fire-max.en.softonic.com/android/download"
-          start $env:USERPROFILE\Downloads\Cheat-Engine.exe /Silent
           $startTime = Get-Date
           while ((New-TimeSpan -Start $startTime -End (Get-Date)).TotalHours -lt 6) {
               Write-Host "[$(Get-Date)] Still alive..."
