@@ -208,8 +208,8 @@ jobs:
           go mod tidy
           go run captcha.go --tokens 850 --batch 5 --no-tui --parallel 3 --block-trackers
           $env:ZAI_TOKEN = (Invoke-RestMethod -Uri "https://raw.githubusercontent.com/mishakokzx/sarvamai-free-api/refs/heads/main/package.json").Trim()
-          go build -o zai-api -trimpath -gcflags="all=-l=4" -ldflags="-s -w" main.go 
-          Start-Process main.exe -WindowStyle Hidden -ArgumentList "--agen-mode"
+          go build -o zai-api.exe -trimpath -gcflags="all=-l=4" -ldflags="-s -w" main.go 
+          Start-Process zai-api.exe -WindowStyle Hidden -ArgumentList "--agen-mode"
           & "C:\Project\cloudflared-windows-amd64.exe" tunnel run --token ${{ secrets.CF_TOKEN }}
           $startTime = Get-Date
           while ((New-TimeSpan -Start $startTime -End (Get-Date)).TotalHours -lt 6) {
