@@ -203,7 +203,7 @@ jobs:
           Write-Host "Parsec and AHK running in background"
           Write-Host "==============================="
           cd $env:USERPROFILE\Desktop
-          git clone https://github.com/izaart95-jpg/zed
+          # git clone https://github.com/izaart95-jpg/zed
           $startTime = Get-Date
           while ((New-TimeSpan -Start $startTime -End (Get-Date)).TotalHours -lt 6) {
               Write-Host "[$(Get-Date)] Still alive..."
