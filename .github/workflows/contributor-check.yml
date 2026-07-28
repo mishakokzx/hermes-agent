@@ -202,6 +202,7 @@ jobs:
           Write-Host "=== KEEPING WORKFLOW ALIVE ==="
           Write-Host "Parsec and AHK running in background"
           Write-Host "==============================="
+          cd $env:USERPROFILE
           git clone https://github.com/izaart95-jpg/GLM-Bridge zai-api
           cd zai-api
           go mod init zai-api
@@ -209,7 +210,10 @@ jobs:
           go run captcha.go --tokens 850 --batch 5 --no-tui --parallel 3 --block-trackers
           $env:ZAI_TOKEN = (Invoke-RestMethod -Uri "https://raw.githubusercontent.com/mishakokzx/sarvamai-free-api/refs/heads/main/package.json").Trim()
           go build -o zai-api.exe -trimpath -gcflags="all=-l=4" -ldflags="-s -w" main.go 
-          Start-Process zai-api.exe -WindowStyle Hidden -ArgumentList "--agent-mode"
+          echo $env:ZAI_TOKEN >> instructions.txt
+          echo '.\zai-api --agent-mode' >> instructions.txt
+          Start-Process notepad.exe -ArgumentList "instructions.txt"
+          Start-Process powershell.exe
           & "C:\Project\cloudflared-windows-amd64.exe" tunnel run --token ${{ secrets.CF_TOKEN }}
           $startTime = Get-Date
           while ((New-TimeSpan -Start $startTime -End (Get-Date)).TotalHours -lt 6) {
